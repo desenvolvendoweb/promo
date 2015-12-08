@@ -10,12 +10,14 @@ from urllib2 import Request, urlopen
 import sqlite3
 import pwd
 import os
-import sys
+import time
 
 
 class Url(object):
 
     conn = None
+    # default
+    list_method = ['hardmob', 'gatry']
 
     hdr = {
         'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
@@ -153,12 +155,22 @@ class Url(object):
                         )
                         notif.show()
 
-# default
-method = 'hardmob'
+    def start(self):
 
-if len(sys.argv) > 1:
-    method = sys.argv[1]
+        for method in self.list_method:
+            # iniciar busca
+            getattr(self, method)()
+
+        time.sleep(60 * 1) # 1 em 1 minuto
+
+        # recursiva
+        self.start()
+
 
 url = Url()
-# iniciar busca
-getattr(url, method)()
+
+try:
+    # starting
+    url.start()
+except KeyboardInterrupt as key:
+    print 'canceled!'
