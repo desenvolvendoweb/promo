@@ -1,6 +1,10 @@
 # promo
 Projeto que popula promoções - testado em (gnome - debian) ou (lxde - lubuntu) - linux
 
+Requerimentos:
+
+# sudo pip install beautifulsoup4
+
 Dicas:
 
 Para o serviço iniciar automaticamente quando o sistema operacional é iniciado é necessário que o X esteja "em pé" para o Notify do kernel tenha suporte nos popups. É aconselhável adicionar o autostart no .config do usuário, assim:
